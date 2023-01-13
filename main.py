@@ -22,7 +22,6 @@ def join():
         while True:
             ls.join()
 
-
 if __name__ == "__main__":
     try:
         threading.Thread(target=join()).start()

