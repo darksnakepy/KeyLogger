@@ -1,0 +1,4 @@
+pycrypto
+pyautogui
+win32gui
+
