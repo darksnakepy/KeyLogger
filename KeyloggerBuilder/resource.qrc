@@ -1,6 +1,0 @@
-<!DOCTYPE RCC>
-<RCC version="1.0">
-    <qresource prefix="icon">
-        <file alias="./images/logo/logo.png">images/logo/logo.png</file>
-    </qresource>
-</RCC>
