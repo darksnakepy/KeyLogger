@@ -1,4 +1,4 @@
-pycrypto
+pycryptodomex
 pyautogui
-win32gui
+pywin32
 
