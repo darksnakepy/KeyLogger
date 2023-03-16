@@ -1,4 +1,5 @@
 pycryptodomex
 pyautogui
 pywin32
-
+pystyle
+pynput
