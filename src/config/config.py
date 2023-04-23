@@ -28,7 +28,7 @@ def choices():
 def writeSettings():
     settings = {
         "timeout": 10,
-        "ipaddress": "0.0.0.0",
+        "ipaddress": "",
         "port": 4444,
         "offlinekl": False,
         "runOnStartup": True
