@@ -1,6 +1,3 @@
-from src.encryption.encode import encryption
-from src.functions.management import *
-from src.main import *
 fileName = randomFileName()
 chars = 0
 data = []
